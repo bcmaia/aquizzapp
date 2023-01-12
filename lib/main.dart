@@ -1,4 +1,5 @@
 import 'package:aquizzapp/routes.dart';
+import 'package:aquizzapp/theme.dart';
 import 'package:flutter/material.dart';
 
 // Import the firebase_core plugin
@@ -41,6 +42,7 @@ class _AppState extends State<App> {
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
             routes: appRoutes,
+            theme: appTheme,
           );
         }
 
