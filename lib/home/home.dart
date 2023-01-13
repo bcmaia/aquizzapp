@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:aquizzapp/shared/bottom_nav.dart';
+import 'package:aquizzapp/login/login.dart';
+import 'package:aquizzapp/topics/topics.dart';
+import 'package:aquizzapp/services/auth.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: const BottomNavBar(),
-      body: Center(
-        child: ElevatedButton(
-          child: Text(
-            'about',
-            style: Theme.of(context).textTheme.button,
-          ),
-          onPressed: () => Navigator.pushNamed(context, '/about'),
-        ),
-      ),
+    return StreamBuilder(
+      stream: AuthServices().userStream,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('Loading...');
+        } else if (snapshot.hasError) {
+          return const Center(child: Text('Error'));
+        } else if (snapshot.hasData) {
+          return const TopicsScreen();
+        } else {
+          return const LoginScreen();
+        }
+      },
     );
   }
 }

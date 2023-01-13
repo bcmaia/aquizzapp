@@ -1,3 +1,4 @@
+import 'package:aquizzapp/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -6,7 +7,17 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Profile'),
+      ),
+      body: ElevatedButton(
+        child: const Text('signout'),
+        onPressed: () async {
+          await AuthServices().signOut();
+          // ignore: use_build_context_synchronously
+          Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+        },
+      ),
     );
   }
 }
